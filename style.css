@@ -1,0 +1,133 @@
+/* Übungsseiten – Farben wie die Folienvorlage (hell) */
+:root {
+  --bg: #FBF8F2;
+  --text: #24303C;
+  --muted: #5C6773;
+  --blau: #1F64A8;        /* Hefter, Hinweise */
+  --orange: #BF5A12;      /* Aufgaben: jetzt arbeiten */
+  --gruen: #3B7F3E;       /* Lösung, Sicherung */
+  --karte: #FFFFFF;
+  --flaeche: #F2EDE3;
+  --linie: #D6CDBE;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Tahoma, Verdana, "DejaVu Sans", system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+header, main, footer { max-width: 820px; margin: 0 auto; padding: 0 16px; }
+
+header { padding-top: 28px; padding-bottom: 8px; }
+h1 { font-size: 1.75rem; line-height: 1.2; margin: 0.2em 0 0.2em; }
+.kicker {
+  display: inline-block; margin: 0;
+  background: var(--blau); color: #fff;
+  font-size: 0.72rem; font-weight: bold; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 3px 12px; border-radius: 999px;
+}
+.unter { color: var(--muted); margin: 0.2em 0 0; }
+
+.einleitung {
+  background: var(--flaeche); border-radius: var(--radius);
+  padding: 4px 18px; margin: 18px 0;
+}
+
+/* Themenübersicht */
+nav.themen { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 8px; margin: 18px 0 8px; }
+nav.themen a {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--karte); border: 1px solid var(--linie); border-radius: var(--radius);
+  padding: 8px 12px; color: var(--text); text-decoration: none; font-size: 0.95rem;
+}
+nav.themen a:hover, nav.themen a:focus-visible { border-color: var(--orange); }
+nav.themen span, .kachel {
+  flex: none; display: inline-grid; place-items: center;
+  width: 30px; height: 30px; border-radius: 8px;
+  background: var(--orange); color: #fff; font-weight: bold;
+}
+
+/* Thema */
+section.thema { margin: 38px 0 0; scroll-margin-top: 12px; }
+section.thema h2 { display: flex; align-items: center; gap: 12px; font-size: 1.35rem; margin: 0 0 4px; }
+.kachel { width: 36px; height: 36px; font-size: 1.1rem; }
+.check { color: var(--muted); font-size: 0.9rem; margin: 0 0 10px; }
+
+/* Aufgabe */
+article.aufgabe {
+  background: var(--karte); border: 1px solid var(--linie);
+  border-left: 5px solid var(--orange); border-radius: var(--radius);
+  padding: 4px 18px 14px; margin: 14px 0; scroll-margin-top: 12px;
+}
+article.aufgabe h3 { font-size: 1.1rem; margin: 12px 0 6px; display: flex; gap: 10px; align-items: baseline; }
+.nr { color: var(--orange); font-weight: bold; }
+.niveau { color: var(--muted); font-size: 0.85rem; margin: 0; }
+.ergebnis { color: var(--blau); font-size: 0.95rem; }
+
+ol.teil { list-style: none; padding: 0; margin: 8px 0; }
+ol.teil li { display: flex; gap: 8px; margin: 6px 0; }
+ol.teil .abc { flex: none; width: 1.6em; }
+ol.teil li > div > p:first-child { margin-top: 0; }
+ol.teil li > div > p:last-child { margin-bottom: 0; }
+
+figure { margin: 12px 0; text-align: center; }
+figure img { max-width: 100%; height: auto; max-height: 340px; }
+figcaption { color: var(--muted); font-size: 0.85rem; }
+
+.formel { text-align: center; margin: 10px 0; overflow-x: auto; }
+ol.teil .formel { text-align: left; margin: 4px 0; }
+img.f { display: inline-block; }
+
+/* Hinweise und Lösung */
+details { border-radius: 8px; margin: 8px 0 0; }
+details > summary {
+  cursor: pointer; list-style: none; font-weight: bold; font-size: 0.95rem;
+  padding: 7px 12px; border-radius: 8px; user-select: none;
+}
+details > summary::-webkit-details-marker { display: none; }
+details > summary::before { content: "▸  "; }
+details[open] > summary::before { content: "▾  "; }
+details > div { padding: 0 14px 10px; }
+details > div > p { margin: 0.4em 0; }
+details ol.teil { margin: 4px 0; }
+
+details.hinweis { background: #EAF1F8; }
+details.hinweis > summary { color: var(--blau); }
+details.loesung { background: #ECF4EA; }
+details.loesung > summary { color: var(--gruen); }
+
+.hoch { text-align: right; font-size: 0.85rem; margin: 4px 0 0; }
+a { color: var(--blau); }
+
+section.weitere { margin: 40px 0 0; }
+section.weitere h2 { font-size: 1.2rem; }
+
+/* Übersicht aller Übungsseiten */
+nav.uebersicht { display: grid; gap: 10px; margin: 20px 0; }
+a.seite {
+  display: flex; flex-direction: column; gap: 4px;
+  background: var(--karte); border: 1px solid var(--linie); border-left: 5px solid var(--blau);
+  border-radius: var(--radius); padding: 12px 16px; color: var(--text); text-decoration: none;
+}
+a.seite .kicker { align-self: flex-start; }
+a.seite span:last-child { color: var(--muted); font-size: 0.95rem; }
+
+footer { margin-top: 48px; padding-top: 14px; padding-bottom: 28px;
+  border-top: 1px solid var(--linie); color: var(--muted); font-size: 0.85rem; }
+
+/* Druck: Aufgaben ohne Hilfen und Lösungen */
+@media print {
+  body { background: #fff; font-size: 11pt; }
+  nav, details, .hoch, footer { display: none; }
+  article.aufgabe { break-inside: avoid; border-color: #999; }
+}
