@@ -88,12 +88,19 @@ figcaption { color: var(--muted); font-size: 0.85rem; }
 ol.teil .formel { text-align: left; margin: 4px 0; }
 img.f { display: inline-block; }
 
-/* Hinweise und Lösung */
-details { border-radius: 8px; margin: 8px 0 0; }
+/* Hinweise und Lösung: nebeneinander als Knöpfe, die Lösung rechts.
+   Ein geöffneter Knopf nimmt die ganze Breite, die übrigen rutschen darunter. */
+.hilfen { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 2px; }
+details { border-radius: 8px; flex: 0 0 auto; max-width: 100%; }
+details[open] { flex-basis: 100%; }
+details.loesung { margin-left: auto; }
 details > summary {
   cursor: pointer; list-style: none; font-weight: bold; font-size: 0.95rem;
-  padding: 7px 12px; border-radius: 8px; user-select: none;
+  padding: 7px 14px; border-radius: 8px; user-select: none;
 }
+details > summary:hover { text-decoration: underline; text-underline-offset: 3px; }
+summary:focus-visible, nav a:focus-visible, a.seite:focus-visible {
+  outline: 2px solid var(--blau); outline-offset: 2px; }
 details > summary::-webkit-details-marker { display: none; }
 details > summary::before { content: "▸  "; }
 details[open] > summary::before { content: "▾  "; }
@@ -104,7 +111,10 @@ details ol.teil { margin: 4px 0; }
 details.hinweis { background: #EAF1F8; }
 details.hinweis > summary { color: var(--blau); }
 details.loesung { background: #ECF4EA; }
-details.loesung > summary { color: var(--gruen); }
+details.loesung > summary { color: #367539; }   /* etwas dunkler als --gruen: Kontrast 5:1 */
+summary .zu { display: none; }                  /* "zu A1" nur im PDF */
+
+.pdf { font-size: 0.92rem; color: var(--muted); }
 
 .hoch { text-align: right; font-size: 0.85rem; margin: 4px 0 0; }
 a { color: var(--blau); }
@@ -120,14 +130,30 @@ a.seite {
   border-radius: var(--radius); padding: 12px 16px; color: var(--text); text-decoration: none;
 }
 a.seite .kicker { align-self: flex-start; }
-a.seite span:last-child { color: var(--muted); font-size: 0.95rem; }
+a.seite .unter { font-size: 0.95rem; margin: 0; }
+a.seite .umfang { color: var(--muted); font-size: 0.82rem; }
+a.seite:hover { border-color: var(--blau); }
 
 footer { margin-top: 48px; padding-top: 14px; padding-bottom: 28px;
   border-top: 1px solid var(--linie); color: var(--muted); font-size: 0.85rem; }
 
+/* Touch: Knöpfe und Links mindestens 44 px hoch, damit sie sich sicher treffen lassen */
+@media (pointer: coarse) {
+  details > summary { padding: 10px 16px; }
+  .hoch a { display: inline-block; padding: 10px 0 10px 16px; }
+}
+
+/* Handy: Themenliste kompakter, Karten etwas schmaler gepolstert */
+@media (max-width: 560px) {
+  nav.themen { gap: 6px; }
+  nav.themen a { padding: 5px 10px; }
+  nav.themen span { width: 26px; height: 26px; font-size: 0.9rem; }
+  article.aufgabe { padding: 2px 14px 12px; }
+}
+
 /* Druck: Aufgaben ohne Hilfen und Lösungen */
 @media print {
   body { background: #fff; font-size: 11pt; }
-  nav, details, .hoch, footer { display: none; }
+  nav.themen, .hilfen, .hoch, .pdf, footer { display: none; }
   article.aufgabe { break-inside: avoid; border-color: #999; }
 }
